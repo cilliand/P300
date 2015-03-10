@@ -197,8 +197,8 @@ void testApp::analyseSignal(vector<float> &sig, int winStart, int winLen, vector
 
         if(totalArea[s] > lastArea){
             best = s;
+            lastArea = totalArea[s];
         }
-        lastArea = totalArea[s];
     }
 
     ofxOscMessage m;
@@ -211,7 +211,7 @@ void testApp::analyseSignal(vector<float> &sig, int winStart, int winLen, vector
 
 void testApp::analyse() {
     appPhase = ANALYSING;
-    int sampleRate = 128;
+    int sampleRate = 256;
     float winLenMs = 500;
     float winStartMs = 100;
     int winLen = (winLenMs / 1000.0 * sampleRate);
