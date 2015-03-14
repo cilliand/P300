@@ -5,7 +5,7 @@
 
 #define SETTINGSTAG "SETTINGS"
 
-
+int index = -1;
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -40,6 +40,7 @@ void testApp::update(){
                 val = dcBlocker.play(val, 0.92);
                 val = filterNotch50Hz(val);
                 val = lpfilter45(val);
+ //               std::cout << val << std::endl;
                 eeg.push_back(val);
                 recentEEG.push_back(val);
                 recentEEG.pop_front();
@@ -53,6 +54,7 @@ void testApp::update(){
                 for(int i=0; i < stimCount; i++) {
                     stimIndexes[i].clear();
                 }
+                index++;
                 eeg.clear();
                 appPhase = RECORDING;
             }
@@ -61,33 +63,34 @@ void testApp::update(){
                 analyse();
             }
         }
-        while(oscStim.getNextMessage(&msg)) {
-            //            cout << msg.getAddress() << endl;
-            if (msg.getAddress() == "/d" && RECORDING == appPhase) {
-                float val = msg.getArgAsFloat(0);
-                val = dcBlocker.play(val, 0.92);
-                val = filterNotch50Hz(val);
-                val = lpfilter45(val);
-                eeg.push_back(val);
-                recentEEG.push_back(val);
-                recentEEG.pop_front();
-            }
-            else if (msg.getAddress() == "/st" && RECORDING == appPhase) {
-                int idx = msg.getArgAsInt32(0);
-                stimIndexes[idx].push_back(MAX(0,eeg.size()-1));
-                cout << "Stim: " << idx << endl;
-            }
-            else if (msg.getAddress() == "/start") {
-                for(int i=0; i < stimCount; i++) {
-                    stimIndexes[i].clear();
-                }
-                eeg.clear();
-            }
-            else if (msg.getAddress() == "/end" && RECORDING == appPhase) {
-                //analyse
-                analyse();
-            }
-        }
+//        while(oscStim.getNextMessage(&msg)) {
+//            //            cout << msg.getAddress() << endl;
+//            if (msg.getAddress() == "/d" && RECORDING == appPhase) {
+//                float val = msg.getArgAsFloat(0);
+////              val = dcBlocker.play(val, 0.92);
+////              val = filterNotch50Hz(val);
+////              val = lpfilter45(val);
+////              std::cout << val << std::endl;
+//                eeg.push_back(val);
+//                recentEEG.push_back(val);
+//                recentEEG.pop_front();
+//            }
+//            else if (msg.getAddress() == "/st" && RECORDING == appPhase) {
+//                int idx = msg.getArgAsInt32(0);
+//                stimIndexes[idx].push_back(MAX(0,eeg.size()-1));
+//                cout << "Stim: " << idx << endl;
+//            }
+//            else if (msg.getAddress() == "/start") {
+//                for(int i=0; i < stimCount; i++) {
+//                    stimIndexes[i].clear();
+//                }
+//                eeg.clear();
+//            }
+//            else if (msg.getAddress() == "/end" && RECORDING == appPhase) {
+//                //analyse
+//                analyse();
+//            }
+//        }
     }
 }
 
@@ -211,17 +214,21 @@ void testApp::analyseSignal(vector<float> &sig, int winStart, int winLen, vector
 
 void testApp::analyse() {
     appPhase = ANALYSING;
-    int sampleRate = 256;
+    int sampleRate = 128;
     float winLenMs = 500;
     float winStartMs = 100;
     int winLen = (winLenMs / 1000.0 * sampleRate);
     int winStart = (winStartMs / 1000.0 * sampleRate);
+        //epoc 40
+        //start 10 in
+        //.5 secs stims
+        //9 secs time window
 
-//    log.addTag(SETTINGSTAG);
-//    log.pushTag(SETTINGSTAG, 0);
-//    log.addAttribute(SETTINGSTAG, "STIMCOUNT", stimCount, 0);
-//    log.addAttribute(SETTINGSTAG, "SAMPLERATE", sampleRate, 0);
-//    log.popTag();
+    log.addTag(SETTINGSTAG);
+    log.pushTag(SETTINGSTAG, 0);
+    log.addAttribute(SETTINGSTAG, "STIMCOUNT", stimCount, 0);
+    log.addAttribute(SETTINGSTAG, "SAMPLERATE", sampleRate, 0);
+    log.popTag();
     stringstream data;
     for(int e=0; e < eeg.size(); e++)
         data << eeg[e] << ",";
@@ -231,8 +238,8 @@ void testApp::analyse() {
         for(int i=0; i < stimIndexes[s].size(); i++) {
             data << stimIndexes[s][i] << ",";
         }
-        log.addValue("INDEXES", data.str());
-        log.addAttribute("INDEXES", "STIM", s, s);
+        log.addValue("INDEXES_"+ofToString(index), data.str());
+        log.addAttribute("INDEXES_"+ofToString(index), "STIM", s, s);
     }
     cout << winLen << ", " << winStart;
     //cout << "Window: len: " << winLen << ", offset: " << winStart << endl;

@@ -2949,7 +2949,7 @@
 	<string>
 	<iostream>
 
-1422442204 c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\ofxxmlsettings.h
+1426024978 c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\ofxxmlsettings.h
 	"ofMain.h"
 	<string.h>
 	"../libs/tinyxml.h"
@@ -2964,7 +2964,7 @@
 	"testApp.h"
 	"ofAppGlutWindow.h"
 
-1423762574 c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\apps\myapps\p300\src\testapp.h
+1424889239 c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\apps\myapps\p300\src\testapp.h
 	"ofMain.h"
 	"ofxOsc.h"
 	<vector>
@@ -2999,7 +2999,7 @@
 	"ofTypes.h"
 	"ofPixels.h"
 
-1423757277 source:c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\apps\myapps\p300\src\testapp.cpp
+1426337671 source:c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\apps\myapps\p300\src\testapp.cpp
 	"testApp.h"
 	<sstream>
 	"filters.cpp"
@@ -5968,7 +5968,7 @@
 	<string>
 	<iostream>
 
-1422442204 d:\users\ausu\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\ofxxmlsettings.h
+1426024978 d:\users\ausu\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\ofxxmlsettings.h
 	"ofMain.h"
 	<string.h>
 	"../libs/tinyxml.h"
@@ -6036,4 +6036,26 @@
 
 1349340205 d:\users\ausu\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\apps\myapps\p300\src\filters.cpp
 	<iostream>
+
+1422442204 d:\users\ausu\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1422442204 c:\users\cillian\dropbox\oframeworks dev\of_v0.8.4_win_cb_release\addons\ofxxmlsettings\src\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
 
